@@ -13,7 +13,7 @@ def object_iter(array):
     return arr
 
 
-def buble_sort(array):
+def bubble_sort(array):
     len_arr = 1
     count = 0
     while count < len(array):
@@ -26,16 +26,19 @@ def buble_sort(array):
     return array
 
 
+with open('war_and_peace.txt', 'r', encoding='utf-8') as f:
+    text = f.read()
+
 # 'beep boop beer!' итоговый ответ отличается от того, что в методичке, но на вебинаре
 # было сказано, что нет разницы в какой последовательности стоят символы, главное, чтобы
 # была сортировка по частоте вхождения символов (по крайней мере у меня получился другой
 # ответ из-за того, что на промежуточном уровне иначе стоят буквы, но частота вхождения
 # у них одинаковая)
-user_row = input('Введите любую строку: ')
+user_row = text  # input('Введите любую строку: ')
 
 keys = list(Counter(user_row).keys())
 values = list(Counter(user_row).values())
-buble_sort(values)
+bubble_sort(values)
 result_dict = {k: [] for k in keys}
 
 while len(values) != 1:
@@ -54,10 +57,13 @@ while len(values) != 1:
         keys[1] = [keys[0], keys[1]]
         del values[0]
         del keys[0]
-    buble_sort(values)
+    bubble_sort(values)
 
 haffman_row = []
 for l in user_row:
     if l in result_dict:
         haffman_row.extend([result_dict[l]])
-print(f'Строка - {user_row} закодированная по алгоритму Хаффмана:\n{haffman_row}')
+haffman_row = str(haffman_row)
+with open('war_and_peace_haffman.txt', 'w', encoding='utf-8') as f:
+    f.write(haffman_row)
+
